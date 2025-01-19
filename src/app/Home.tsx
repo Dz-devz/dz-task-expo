@@ -34,7 +34,7 @@ const Home = () => {
       </View>
       <Link
         href="/Create"
-        className="text-white text-lg w-52 h-8 rounded-md mx-auto text-center mt-4 bg-black"
+        className="text-white text-2xl w-56 h-10 rounded-md mx-auto text-center mt-4 bg-black"
       >
         Start your day
       </Link>

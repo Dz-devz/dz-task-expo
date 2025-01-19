@@ -5,6 +5,8 @@ import { Text, View } from "react-native";
 type dataProps = {
   id: string;
   title: string;
+  description: string;
+  priority: number;
 };
 
 const Task = () => {
@@ -23,9 +25,13 @@ const Task = () => {
 
   return (
     <View>
-      <Text>Task</Text>
+      <Text className="text-center font-bold text-2xl mt-4">List of Task</Text>
       {data.map((d) => (
-        <Text key={d.id}>Index {d.title}</Text>
+        <View>
+          <Text key={d.id}>Title: {d.title}</Text>
+          <Text>Description: {d.description}</Text>
+          <Text>Priority: {d.priority}</Text>
+        </View>
       ))}
     </View>
   );
