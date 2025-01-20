@@ -2,7 +2,15 @@ import { Picker } from "@react-native-picker/picker";
 import { useFocusEffect } from "@react-navigation/native";
 import axios from "axios";
 import React, { useState } from "react";
-import { Alert, Button, ScrollView, Text, TextInput, View } from "react-native";
+import {
+  Alert,
+  Button,
+  ScrollView,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { TaskType } from "../db/types";
 
 type dataProps = {
@@ -16,7 +24,6 @@ type dataProps = {
 const Task = () => {
   const [data, setData] = useState<dataProps[]>([]);
   const [updateTask, setUpdateTask] = useState<dataProps | null>(null);
-  const [filters, setFilters] = useState("");
 
   const fetchData = async () => {
     try {
@@ -79,9 +86,9 @@ const Task = () => {
   const getStatusColor = (status: TaskType) => {
     switch (status) {
       case "PENDING":
-        return "bg-yellow-300";
+        return "bg-yellow-400";
       case "PROCESSING":
-        return "bg-blue-500";
+        return "bg-blue-400";
       case "COMPLETED":
         return "bg-green-500";
       case "CANCELLED":
@@ -92,33 +99,37 @@ const Task = () => {
   };
 
   return (
-    <ScrollView>
+    <ScrollView className="flex-1 bg-gray-200">
       <Text className="bg-stone-600 text-center font-bold text-2xl mt-4 text-white w-44 mx-auto">
         List of Task
       </Text>
-      <Button
-        color="black"
-        title="Pending"
+      <TouchableOpacity
+        className="w-32 h-8 mt-4 bg-pink-100 rounded-md mx-auto"
         onPress={() => handleStatusFilter("PENDING")}
-      />
-      <Button
-        color="black"
-        title="Processing"
+      >
+        <Text className="font-semibold text-lg text-center">Pending</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        className="w-32 h-8 mt-4 bg-pink-100 rounded-md mx-auto"
         onPress={() => handleStatusFilter("PROCESSING")}
-      />
-      <Button
-        color="black"
-        title="Completed"
+      >
+        <Text className="font-semibold text-lg text-center">Processing</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        className="w-32 h-8 mt-4 bg-pink-100 rounded-md mx-auto"
         onPress={() => handleStatusFilter("COMPLETED")}
-      />
-      <Button
-        color="black"
-        title="Cancelled"
+      >
+        <Text className="font-semibold text-lg text-center">Completed</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        className="w-32 h-8 mt-4 bg-pink-100 rounded-md mx-auto"
         onPress={() => handleStatusFilter("CANCELLED")}
-      />
+      >
+        <Text className="font-semibold text-lg text-center">Cancelled</Text>
+      </TouchableOpacity>
       {data.map((d) => (
         <View
-          className="bg-pink-300 shadow my-4 p-4 rounded-2xl w-72 mx-auto"
+          className="bg-rose-200 shadow my-4 p-4 rounded-2xl w-72 mx-auto"
           key={d.id}
         >
           {updateTask?.id === d.id ? (
@@ -169,20 +180,34 @@ const Task = () => {
           ) : (
             <View>
               <View className="flex justify-between items-center flex-row">
-                <Text className="">{d.task}</Text>
+                <Text className="text-lg font-medium">{d.task}</Text>
                 <Text
-                  className={`p-[2px] w-32 rounded-lg text-center ${getStatusColor(
+                  className={`p-[2px] w-32 rounded-lg text-center text-white ${getStatusColor(
                     d.status
                   )}`}
                 >
                   {d.status}
                 </Text>
               </View>
-              <Text>{d.description}</Text>
-              <Text className="">{d.priority}</Text>
+              <Text className="text-lg font-medium">{d.description}</Text>
+              <Text className="text-lg font-medium">{d.priority}</Text>
               <View className="flex justify-around items-center flex-row">
-                <Button title="Update" onPress={() => setUpdateTask(d)} />
-                <Button title="Delete" onPress={() => handleDelete(d.id)} />
+                <TouchableOpacity
+                  className="w-24 h-8 mt-4 bg-pink-50 rounded-md"
+                  onPress={() => setUpdateTask(d)}
+                >
+                  <Text className="font-semibold text-lg text-center">
+                    Update
+                  </Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  className="w-24 h-8 mt-4 bg-pink-50 rounded-md"
+                  onPress={() => handleDelete(d.id)}
+                >
+                  <Text className="font-semibold text-lg text-center">
+                    Delete
+                  </Text>
+                </TouchableOpacity>
               </View>
             </View>
           )}
