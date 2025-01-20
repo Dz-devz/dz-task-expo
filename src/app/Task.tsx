@@ -1,11 +1,13 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Text, View } from "react-native";
+import { ScrollView, Text, View } from "react-native";
+import { TaskType } from "../db/types";
 
 type dataProps = {
   id: string;
-  title: string;
+  task: string;
   description: string;
+  status: TaskType;
   priority: number;
 };
 
@@ -24,16 +26,17 @@ const Task = () => {
   }, []);
 
   return (
-    <View>
+    <ScrollView>
       <Text className="text-center font-bold text-2xl mt-4">List of Task</Text>
       {data.map((d) => (
-        <View>
-          <Text key={d.id}>Title: {d.title}</Text>
+        <View key={d.id}>
+          <Text>Task: {d.task}</Text>
           <Text>Description: {d.description}</Text>
+          <Text>Status: {d.status}</Text>
           <Text>Priority: {d.priority}</Text>
         </View>
       ))}
-    </View>
+    </ScrollView>
   );
 };
 
