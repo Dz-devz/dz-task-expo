@@ -16,6 +16,7 @@ type dataProps = {
 const Task = () => {
   const [data, setData] = useState<dataProps[]>([]);
   const [updateTask, setUpdateTask] = useState<dataProps | null>(null);
+  const [filters, setFilters] = useState("");
 
   const fetchData = async () => {
     try {
@@ -58,6 +59,23 @@ const Task = () => {
     }
   };
 
+  const sortTasks = (status: string) => {
+    const sortedData = [...data].sort((a, b) => {
+      const statusOrder = ["PENDING", "PROCESSING", "COMPLETED", "CANCELLED"];
+
+      if (a.status === status && b.status !== status) return -1;
+      if (b.status === status && a.status !== status) return 1;
+
+      return statusOrder.indexOf(a.status) - statusOrder.indexOf(b.status);
+    });
+
+    setData(sortedData);
+  };
+
+  const handleStatusFilter = (status: string) => {
+    sortTasks(status);
+  };
+
   const getStatusColor = (status: TaskType) => {
     switch (status) {
       case "PENDING":
@@ -78,6 +96,26 @@ const Task = () => {
       <Text className="bg-stone-600 text-center font-bold text-2xl mt-4 text-white w-44 mx-auto">
         List of Task
       </Text>
+      <Button
+        color="black"
+        title="Pending"
+        onPress={() => handleStatusFilter("PENDING")}
+      />
+      <Button
+        color="black"
+        title="Processing"
+        onPress={() => handleStatusFilter("PROCESSING")}
+      />
+      <Button
+        color="black"
+        title="Completed"
+        onPress={() => handleStatusFilter("COMPLETED")}
+      />
+      <Button
+        color="black"
+        title="Cancelled"
+        onPress={() => handleStatusFilter("CANCELLED")}
+      />
       {data.map((d) => (
         <View
           className="bg-pink-300 shadow my-4 p-4 rounded-2xl w-72 mx-auto"
