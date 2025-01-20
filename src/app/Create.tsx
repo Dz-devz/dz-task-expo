@@ -1,5 +1,6 @@
 import { Picker } from "@react-native-picker/picker";
 import axios from "axios";
+import { useNavigation } from "expo-router";
 import { useReducer } from "react";
 import { Alert, Button, Text, TextInput, View } from "react-native";
 import "../../global.css";
@@ -42,8 +43,13 @@ const reducer = (state: StateType, action: ActionType): StateType => {
 
 const Create = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
+  const navigation = useNavigation();
 
   const handleSubmit = async () => {
+    if (state.taskState.trim() === "" || state.descState.trim() === "") {
+      Alert.alert("Required", "Task and Description cannot be empty.");
+      return;
+    }
     try {
       const response = await axios.post(
         "https://task-api-prod.up.railway.app/tasks",
@@ -54,6 +60,7 @@ const Create = () => {
           status: state.statusState,
         }
       );
+
       if (response.status === 201) {
         console.log("Task created successfully:", response.data);
         Alert.alert("Success", "Task created successfully!");
@@ -61,6 +68,7 @@ const Create = () => {
         dispatch({ type: "SET_DESC", payload: "" });
         dispatch({ type: "SET_STATUS", payload: TaskType.PENDING });
         dispatch({ type: "SET_PRIO", payload: 0 });
+        navigation.navigate("Task" as never);
       } else {
         Alert.alert("Error", "Failed to create the task.");
       }
