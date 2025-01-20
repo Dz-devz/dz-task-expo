@@ -1,6 +1,7 @@
 import { Picker } from "@react-native-picker/picker";
+import { useFocusEffect } from "@react-navigation/native";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Alert, Button, ScrollView, Text, TextInput, View } from "react-native";
 import { TaskType } from "../db/types";
 
@@ -16,16 +17,21 @@ const Task = () => {
   const [data, setData] = useState<dataProps[]>([]);
   const [updateTask, setUpdateTask] = useState<dataProps | null>(null);
 
-  useEffect(() => {
-    const fetchData = async () => {
+  const fetchData = async () => {
+    try {
       const res = await axios.get("https://task-api-prod.up.railway.app/tasks");
       const body = await res.data;
-
-      console.log(body);
       setData(body);
-    };
-    fetchData();
-  }, []);
+    } catch (error) {
+      console.error("Error fetching tasks:", error);
+    }
+  };
+
+  useFocusEffect(
+    React.useCallback(() => {
+      fetchData();
+    }, [])
+  );
 
   const handleUpdate = async (task: dataProps) => {
     const response = await axios.put(
@@ -39,6 +45,16 @@ const Task = () => {
         prev.map((d) => (d.id === task.id ? { ...d, ...task } : d))
       );
       setUpdateTask(null);
+    }
+  };
+
+  const handleDelete = async (id: string) => {
+    const response = await axios.delete(
+      `https://task-api-prod.up.railway.app/tasks/${id}`
+    );
+    if (response.status === 200) {
+      Alert.alert("Delete", "Deleted successfully!");
+      setData((prev) => prev.filter((task) => task.id !== id));
     }
   };
 
@@ -68,13 +84,11 @@ const Task = () => {
           key={d.id}
         >
           {updateTask?.id === d.id ? (
-            <View>
+            <View className="flex justify-center gap-2">
               <TextInput
                 value={updateTask.task}
                 onChangeText={(text) =>
-                  setUpdateTask((prev) =>
-                    prev ? { ...prev, task: text } : prev
-                  )
+                  setUpdateTask({ ...updateTask, task: text })
                 }
                 placeholder="Task"
                 className="bg-gray-200 p-2 rounded"
@@ -82,19 +96,16 @@ const Task = () => {
               <TextInput
                 value={updateTask.description}
                 onChangeText={(text) =>
-                  setUpdateTask((prev) =>
-                    prev ? { ...prev, description: text } : prev
-                  )
+                  setUpdateTask({ ...updateTask, description: text })
                 }
                 placeholder="Description"
                 className="bg-gray-200 p-2 rounded"
               />
               <Picker
+                style={{ backgroundColor: "#e5e7eb" }}
                 selectedValue={updateTask.status}
                 onValueChange={(text) =>
-                  setUpdateTask((prev) =>
-                    prev ? { ...prev, status: text as TaskType } : prev
-                  )
+                  setUpdateTask({ ...updateTask, status: text as TaskType })
                 }
               >
                 <Picker.Item label="PENDING" value="PENDING" />
@@ -105,9 +116,10 @@ const Task = () => {
               <TextInput
                 value={updateTask.priority.toString()}
                 onChangeText={(text) =>
-                  setUpdateTask((prev) =>
-                    prev ? { ...prev, priority: parseInt(text) || 0 } : prev
-                  )
+                  setUpdateTask({
+                    ...updateTask,
+                    priority: parseInt(text) || 0,
+                  })
                 }
                 keyboardType="numeric"
                 placeholder="Priority"
@@ -132,7 +144,7 @@ const Task = () => {
               <Text className="">{d.priority}</Text>
               <View className="flex justify-around items-center flex-row">
                 <Button title="Update" onPress={() => setUpdateTask(d)} />
-                <Button title="Delete" />
+                <Button title="Delete" onPress={() => handleDelete(d.id)} />
               </View>
             </View>
           )}
