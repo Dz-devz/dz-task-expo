@@ -1,4 +1,4 @@
-import { Feather } from "@expo/vector-icons";
+import { Feather, MaterialIcons } from "@expo/vector-icons";
 import { Picker } from "@react-native-picker/picker";
 import { useFocusEffect } from "@react-navigation/native";
 import axios from "axios";
@@ -163,7 +163,7 @@ const Task = () => {
           </View>
           {data.map((d) => (
             <View
-              className="bg-rose-200/50 my-4 p-4 rounded-2xl w-80 mx-auto"
+              className="bg-white/50 my-4 p-4 rounded-2xl w-80 mx-auto"
               key={d.id}
             >
               {updateTask?.id === d.id ? (
@@ -174,7 +174,7 @@ const Task = () => {
                       setUpdateTask({ ...updateTask, task: text })
                     }
                     placeholder="Task"
-                    className="bg-gray-200 p-2 rounded w-[194px] ml-[15px]"
+                    className="bg-gray-200 p-2 rounded w-[194px] mx-auto"
                   />
                   <TextInput
                     value={updateTask.description}
@@ -182,13 +182,14 @@ const Task = () => {
                       setUpdateTask({ ...updateTask, description: text })
                     }
                     placeholder="Description"
-                    className="bg-gray-200 p-2 rounded w-[194px] ml-[15px]"
+                    className="bg-gray-200 p-2 rounded w-[194px] mx-auto"
                   />
                   <Picker
                     style={{
                       backgroundColor: "#e5e7eb",
                       width: 192,
-                      marginLeft: 16,
+                      marginLeft: "auto",
+                      marginRight: "auto",
                     }}
                     selectedValue={updateTask.status}
                     onValueChange={(text) =>
@@ -210,24 +211,23 @@ const Task = () => {
                     }
                     keyboardType="numeric"
                     placeholder="Priority"
-                    className="bg-gray-200 p-2 rounded w-[194px] ml-[15px]"
+                    className="bg-gray-200 p-2 rounded w-[194px] mx-auto"
                   />
-                  <TouchableOpacity
-                    className="w-56 h-8 mt-4 bg-pink-50 rounded-md mx-auto"
-                    onPress={() => handleUpdate(updateTask)}
-                  >
-                    <Text className="font-semibold text-lg text-center">
-                      Save
-                    </Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    className="w-56 h-8 mt-4 bg-pink-50 rounded-md mx-auto"
-                    onPress={() => setUpdateTask(null)}
-                  >
-                    <Text className="font-semibold text-lg text-center">
-                      Cancel
-                    </Text>
-                  </TouchableOpacity>
+                  <View className="flex-row flex w-52 mx-auto justify-between mt-4">
+                    <Feather
+                      name="save"
+                      size={30}
+                      color="black"
+                      onPress={() => handleUpdate(updateTask)}
+                    />
+
+                    <MaterialIcons
+                      name="cancel"
+                      size={30}
+                      color="black"
+                      onPress={() => setUpdateTask(null)}
+                    />
+                  </View>
                 </View>
               ) : (
                 <View>
