@@ -1,9 +1,14 @@
-import { Link } from "expo-router";
+import { Link, useNavigation } from "expo-router";
 import React from "react";
-import { Image } from "react-native";
+import { Image, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { auth } from "../authentication/firebase";
+import { useAuth } from "../hooks/getuser";
 
 const Home = () => {
+  const navigation = useNavigation();
+
+  const user = useAuth();
   return (
     <SafeAreaView className="flex-1 bg-">
       <Image
@@ -16,6 +21,31 @@ const Home = () => {
       >
         Start your day
       </Link>
+      <View className="flex flex-row items-center justify-evenly mt-2">
+        {!user ? (
+          <>
+            <TouchableOpacity
+              className="bg-black w-20 rounded-md p-2"
+              onPress={() => navigation.navigate("Login" as never)}
+            >
+              <Text className="text-lg text-center text-white">Login</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              className="bg-black w-24 rounded-md p-2"
+              onPress={() => navigation.navigate("Register" as never)}
+            >
+              <Text className="text-lg text-center text-white">Register</Text>
+            </TouchableOpacity>
+          </>
+        ) : (
+          <TouchableOpacity
+            onPress={() => auth.signOut()}
+            className="bg-black w-24 rounded-md p-2"
+          >
+            <Text className="text-lg text-center text-white">Logout</Text>
+          </TouchableOpacity>
+        )}
+      </View>
     </SafeAreaView>
   );
 };
