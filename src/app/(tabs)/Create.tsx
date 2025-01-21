@@ -3,8 +3,7 @@ import axios from "axios";
 import { useNavigation } from "expo-router";
 import { useReducer } from "react";
 import { Alert, Button, Text, TextInput, View } from "react-native";
-import "../../global.css";
-import { TaskType } from "../db/types";
+import { TaskType } from "../../db/types";
 
 type StateType = {
   taskState: string;

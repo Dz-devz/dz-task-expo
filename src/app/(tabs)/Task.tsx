@@ -15,7 +15,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { TaskType } from "../db/types";
+import { TaskType } from "../../db/types";
 
 type dataProps = {
   id: string;
@@ -139,7 +139,7 @@ const Task = () => {
             List of Task
           </Text> */}
           <Image
-            source={require("../assets/dz-task-high-resolution-logo-transparent.png")}
+            source={require("../../assets/dz-task-high-resolution-logo-transparent.png")}
             className="w-72 h-48 mx-auto mt-4"
           />
           <View className="flex flex-row mx-auto gap-2 mt-4">
@@ -272,7 +272,7 @@ const Task = () => {
                       <View className="flex-1 items-center justify-center bg-black/10">
                         <View className="w-[350px] bg-white rounded-xl p-5 items-center shadow-lg">
                           <Image
-                            source={require("../assets/dz-task-high-resolution-logo-transparent.png")}
+                            source={require("../../assets/dz-task-high-resolution-logo-transparent.png")}
                             className="w-32 h-24 mx-auto mb-4"
                           />
                           <Text className="text-[16px]">
