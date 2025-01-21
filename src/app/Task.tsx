@@ -7,6 +7,7 @@ import {
   ActivityIndicator,
   Alert,
   Image,
+  Modal,
   ScrollView,
   Text,
   TextInput,
@@ -27,6 +28,7 @@ const Task = () => {
   const [data, setData] = useState<dataProps[]>([]);
   const [updateTask, setUpdateTask] = useState<dataProps | null>(null);
   const [loading, setLoading] = useState(false);
+  const [modalVisibile, setModalVisible] = useState(false);
 
   const fetchData = async () => {
     setLoading(true);
@@ -244,12 +246,49 @@ const Task = () => {
                   <Text className="text-lg font-medium">{d.description}</Text>
                   <Text className="text-lg font-medium">{d.priority}</Text>
                   <View className="flex justify-between items-center flex-row">
+                    <Modal
+                      animationType="fade"
+                      transparent={true}
+                      visible={modalVisibile}
+                      onRequestClose={() => {
+                        setModalVisible(false);
+                      }}
+                    >
+                      <View className="flex-1 items-center justify-center bg-black/10">
+                        <View className="w-[350px] bg-white rounded-xl p-5 items-center shadow-lg">
+                          <Image
+                            source={require("../assets/dz-task-high-resolution-logo-transparent.png")}
+                            className="w-32 h-24 mx-auto mb-4"
+                          />
+                          <Text className="text-[16px]">
+                            Are you sure you want to delete?
+                          </Text>
+                          <View className="flex flex-row gap-14 mt-4">
+                            <TouchableOpacity
+                              onPress={() => {
+                                setModalVisible(false);
+                                handleDelete(d.id);
+                              }}
+                            >
+                              <Text className="text-[16px]">Sure</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                              onPress={() => setModalVisible(false)}
+                            >
+                              <Text className="text-[16px]">Close</Text>
+                            </TouchableOpacity>
+                          </View>
+                        </View>
+                      </View>
+                    </Modal>
                     <Feather
                       className="mt-4"
                       name="trash-2"
                       size={24}
                       color="black"
-                      onPress={() => handleDelete(d.id)}
+                      onPress={() => {
+                        setModalVisible(true);
+                      }}
                     />
                     <TouchableOpacity
                       className="w-24 flex flex-row h-8 mt-4"
