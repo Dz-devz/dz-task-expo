@@ -8,6 +8,7 @@ import {
   Alert,
   Image,
   Modal,
+  RefreshControl,
   ScrollView,
   Text,
   TextInput,
@@ -29,6 +30,7 @@ const Task = () => {
   const [updateTask, setUpdateTask] = useState<dataProps | null>(null);
   const [loading, setLoading] = useState(false);
   const [modalVisibile, setModalVisible] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
 
   const fetchData = async () => {
     setLoading(true);
@@ -109,8 +111,21 @@ const Task = () => {
     }
   };
 
+  const onRefresh = () => {
+    setRefreshing(true);
+    // Simulate a network request
+    setTimeout(() => {
+      setRefreshing(false); // Stop the refresh animation
+    }, 2000);
+  };
+
   return (
-    <ScrollView className="flex-1 bg-gray-200">
+    <ScrollView
+      className="flex-1 bg-gray-200"
+      refreshControl={
+        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+      }
+    >
       {loading && (
         <ActivityIndicator
           className="min-h-screen"
