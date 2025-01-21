@@ -245,16 +245,17 @@ const Task = () => {
                   <Text className="text-lg font-medium">{d.priority}</Text>
                   <View className="flex justify-between items-center flex-row">
                     <Feather
+                      className="mt-4"
                       name="trash-2"
                       size={24}
                       color="black"
                       onPress={() => handleDelete(d.id)}
                     />
                     <TouchableOpacity
-                      className="w-24 flex flex-row h-8 mt-4 gap-2"
+                      className="w-24 flex flex-row h-8 mt-4"
                       onPress={() => setUpdateTask(d)}
                     >
-                      <Text className="font-semibold text-lg">Edit</Text>
+                      <Text className="font-semibold text-lg ml-6">Edit</Text>
                       <Feather
                         name="arrow-right"
                         className="my-auto"
