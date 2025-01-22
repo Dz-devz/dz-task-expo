@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "849464347592",
+    "project_id": "dz-task-5b878",
+    "storage_bucket": "dz-task-5b878.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:849464347592:android:9a64cdaa54d9cdf781cefd",
+        "android_client_info": {
+          "package_name": "com.dzdevdztask"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "849464347592-33r160jbmbi3ktqoplpn547omr47qnjl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCU4bW6M7aznqj5ks1KJUd3dHG5pWGMhbo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "849464347592-33r160jbmbi3ktqoplpn547omr47qnjl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
