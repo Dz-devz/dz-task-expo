@@ -41,7 +41,7 @@ const Register = () => {
         "Please check your credentials and try again."
       );
     }
-    navigation.navigate("Home" as never);
+    router.push("/Home");
   };
 
   return (
