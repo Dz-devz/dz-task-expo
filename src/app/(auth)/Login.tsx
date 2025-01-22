@@ -1,5 +1,5 @@
 import CustomButton from "@/src/components/CustomButton";
-import { router, useNavigation } from "expo-router";
+import { router } from "expo-router";
 import { signInWithEmailAndPassword, updateProfile } from "firebase/auth";
 import React, { useState } from "react";
 import { Alert, Text, TextInput } from "react-native";
@@ -11,7 +11,6 @@ function Login() {
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [error, setError] = useState("");
-  const navigation = useNavigation();
 
   const handleLogin = async () => {
     const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-0.-]+\.[a-zA-Z]{2,4}$/;

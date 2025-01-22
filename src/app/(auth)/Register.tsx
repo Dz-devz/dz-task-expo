@@ -78,7 +78,7 @@ const Register = () => {
         isLoading={undefined}
       />
       <CustomButton
-        title="Register"
+        title="Go to login"
         handlePress={() => router.push("/Login")}
         containerStyles="w-full mt-7"
         textStyles="text-lg font-semibold"
