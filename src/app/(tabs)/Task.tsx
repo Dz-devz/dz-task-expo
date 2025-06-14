@@ -25,7 +25,7 @@ type dataProps = {
   priority: number;
 };
 
-const Task = () => {
+export default function Task() {
   const [data, setData] = useState<dataProps[]>([]);
   const [updateTask, setUpdateTask] = useState<dataProps | null>(null);
   const [loading, setLoading] = useState(false);
@@ -35,7 +35,7 @@ const Task = () => {
   const fetchData = async () => {
     setLoading(true);
     try {
-      const res = await axios.get("https://task-api-prod.up.railway.app/tasks");
+      const res = await axios.get("https://task-api-si4v.onrender.com/tasks");
       const body = await res.data;
       setData(body);
       setLoading(false);
@@ -53,7 +53,7 @@ const Task = () => {
   const handleUpdate = async (task: dataProps) => {
     setLoading(true);
     const response = await axios.put(
-      `https://task-api-prod.up.railway.app/tasks/${task.id}`,
+      `https://task-api-si4v.onrender.com/tasks/${task.id}`,
       task
     );
     if (response.status === 200) {
@@ -70,7 +70,7 @@ const Task = () => {
   const handleDelete = async (id: string) => {
     setLoading(true);
     const response = await axios.delete(
-      `https://task-api-prod.up.railway.app/tasks/${id}`
+      `https://task-api-si4v.onrender.com/tasks/${id}`
     );
     if (response.status === 200) {
       Alert.alert("Delete", "Deleted successfully!");
@@ -326,6 +326,4 @@ const Task = () => {
       )}
     </ScrollView>
   );
-};
-
-export default Task;
+}
