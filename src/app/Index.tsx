@@ -4,7 +4,8 @@ import { Image, ScrollView, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import "../../global.css";
 import CustomButton from "../components/CustomButton";
-const Index = () => {
+
+export default function Index() {
   return (
     <SafeAreaView className="bg-stone-950 h-full">
       <ScrollView contentContainerStyle={{ height: "100%" }}>
@@ -23,7 +24,7 @@ const Index = () => {
           </View>
           <CustomButton
             title="Get Started!"
-            handlePress={() => router.push("/Login")}
+            handlePress={() => router.push("/(auth)/login")}
             containerStyles="w-full mt-7"
             textStyles="text-lg font-semibold"
             isLoading={undefined}
@@ -33,6 +34,4 @@ const Index = () => {
       <StatusBar backgroundColor="#161622" style="light" />
     </SafeAreaView>
   );
-};
-
-export default Index;
+}

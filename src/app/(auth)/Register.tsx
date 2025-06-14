@@ -1,17 +1,15 @@
 import CustomButton from "@/src/components/CustomButton";
-import { router, useNavigation } from "expo-router";
-import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { createUserWithEmailAndPassword, updateProfile } from "@firebase/auth";
+import { router } from "expo-router";
 import React, { useState } from "react";
 import { Alert, Text, TextInput } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { auth } from "../../authentication/firebase";
 
-const Register = () => {
+export default function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
-  const [error, setError] = useState("");
-  const navigation = useNavigation();
 
   const handleRegister = async () => {
     const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-0.-]+\.[a-zA-Z]{2,4}$/;
@@ -41,13 +39,12 @@ const Register = () => {
         "Please check your credentials and try again."
       );
     }
-    router.push("/Home");
+    router.push("/home");
   };
 
   return (
     <SafeAreaView className="flex-1 justify-center p-4 bg-stone-950">
       <Text className="text-2xl font-bold mb-4">Register</Text>
-      {error ? <Text className="text-red-500 mb-2">{error}</Text> : null}
       <TextInput
         className="h-10 border border-gray-400 mb-2 p-2 placeholder:text-white rounded-md"
         placeholder="Name"
@@ -79,13 +76,11 @@ const Register = () => {
       />
       <CustomButton
         title="Go to login"
-        handlePress={() => router.push("/Login")}
+        handlePress={() => router.push("/login")}
         containerStyles="w-full mt-7"
         textStyles="text-lg font-semibold"
         isLoading={undefined}
       />
     </SafeAreaView>
   );
-};
-
-export default Register;
+}

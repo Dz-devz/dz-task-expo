@@ -16,7 +16,7 @@ const RootLayout = () => {
       }}
     >
       <Tabs.Screen
-        name="Home"
+        name="home"
         options={{
           headerShown: false,
           tabBarIcon: () => (
@@ -25,7 +25,7 @@ const RootLayout = () => {
         }}
       />
       <Tabs.Screen
-        name="Create"
+        name="create"
         options={{
           headerShown: false,
           tabBarIcon: () => (
@@ -34,7 +34,7 @@ const RootLayout = () => {
         }}
       />
       <Tabs.Screen
-        name="Task"
+        name="task"
         options={{
           headerShown: false,
           tabBarIcon: () => (
@@ -43,7 +43,7 @@ const RootLayout = () => {
         }}
       />
       <Tabs.Screen
-        name="Profile"
+        name="profile"
         options={{
           headerShown: false,
           tabBarIcon: () => (

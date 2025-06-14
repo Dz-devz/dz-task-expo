@@ -13,7 +13,7 @@ type dataProps = {
   priority: number;
 };
 
-function Profile() {
+const Profile = () => {
   const [data, setData] = useState<dataProps[]>([]);
   const [loading, setLoading] = useState(false);
   const user = useAuth();
@@ -65,6 +65,6 @@ function Profile() {
       )}
     </ScrollView>
   );
-}
+};
 
 export default Profile;

@@ -15,7 +15,7 @@ const Home = () => {
         className="w-96 h-96 mx-auto mt-40"
       />
       <Link
-        href="/Create"
+        href="/create"
         className="text-black text-2xl w-56 h-10 rounded-md mx-auto text-center mt-4 font-bold"
       >
         Start your day {user?.displayName}
@@ -26,13 +26,13 @@ const Home = () => {
           <>
             <TouchableOpacity
               className="bg-black w-20 rounded-md p-2"
-              onPress={() => router.push("/Login")}
+              onPress={() => router.push("/(auth)/login")}
             >
               <Text className="text-lg text-center text-white">Login</Text>
             </TouchableOpacity>
             <TouchableOpacity
               className="bg-black w-24 rounded-md p-2"
-              onPress={() => router.push("/Register")}
+              onPress={() => router.push("/(auth)/register")}
             >
               <Text className="text-lg text-center text-white">Register</Text>
             </TouchableOpacity>

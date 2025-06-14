@@ -1,7 +1,8 @@
 // Import the functions you need from the SDKs you need
+import { initializeApp } from "@firebase/app";
+// Ref: https://stackoverflow.com/questions/71057826/get-component-auth-has-not-been-registered-yet-when-using-firebase-authenticat fix add @
+import { getReactNativePersistence, initializeAuth } from "@firebase/auth";
 import ReactNativeAsyncStorage from "@react-native-async-storage/async-storage";
-import { initializeApp } from "firebase/app";
-import { getReactNativePersistence, initializeAuth } from "firebase/auth";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -17,6 +18,7 @@ const firebaseConfig = {
   measurementId: "G-BQ8QR1E9XH",
 };
 
+// Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
 const auth = initializeAuth(app, {
